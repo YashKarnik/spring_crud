@@ -8,8 +8,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import com.yash.wall.Exceptions.DatabaseConnectionException;
 import com.yash.wall.entity.User;
+import com.yash.wall.exceptions.DatabaseConnectionException;
 
 import lombok.AllArgsConstructor;
 

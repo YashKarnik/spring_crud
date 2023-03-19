@@ -2,9 +2,9 @@ package com.yash.wall.service;
 
 import org.springframework.stereotype.Service;
 
-import com.yash.wall.Exceptions.IllegalRequestEntityException;
-import com.yash.wall.Exceptions.UserNotFoundException;
 import com.yash.wall.entity.User;
+import com.yash.wall.exceptions.IllegalRequestEntityException;
+import com.yash.wall.exceptions.UserNotFoundException;
 import com.yash.wall.repository.UserRepository;
 
 import lombok.AllArgsConstructor;

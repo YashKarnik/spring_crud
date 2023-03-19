@@ -1,4 +1,4 @@
-package com.yash.wall.Exceptions;
+package com.yash.wall.exceptions;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
