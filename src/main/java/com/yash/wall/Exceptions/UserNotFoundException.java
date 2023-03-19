@@ -1,4 +1,4 @@
-package com.yash.wall.Exceptions;
+package com.yash.wall.exceptions;
 
 public class UserNotFoundException extends RuntimeException {
 
