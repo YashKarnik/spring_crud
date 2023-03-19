@@ -49,15 +49,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(int id, String field, User user) {
-
-        if (field.equals("username") && user.getUsername() != null)
-            userRepository.updateUserUsernameById(id, user.getUsername());
-        else if (field.equals("password") && user.getPassword() != null)
-            userRepository.updateUserPasswordById(id, user.getPassword());
-        else if (!(user.getUsername() == null ^ user.getPassword() == null))
-            throw new IllegalRequestEntityException();
-        else
+        if (field.equals("username")) {
+            if (user.getUsername() != null)
+                userRepository.updateUserUsernameById(id, user.getUsername());
+            else
+                throw new IllegalRequestEntityException();
+        } else if (field.equals("password")) {
+            if (user.getPassword() != null)
+                userRepository.updateUserPasswordById(id, user.getPassword());
+            else
+                throw new IllegalRequestEntityException();
+        } else
             throw new IllegalRequestEntityException(field);
+
     }
 
 }
