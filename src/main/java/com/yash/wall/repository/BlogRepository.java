@@ -28,10 +28,17 @@ public class BlogRepository {
     }
 
     // read
-    public Optional<List<BlogDetailsVO>> getBlogByUserId(int userid) {
-        String query = String.format(Queries.GET_BLOG_BY_USER_ID, userid);
+    public Optional<List<BlogDetailsVO>> getBlogsByUserId(int userid) {
+        String query = String.format(Queries.GET_BLOGS_BY_USER_ID, userid);
         ResultSet result = postgreSqlJDBC.executeQuery(query);
         return sqlObjectMapper.mapBlogs(result);
+    }
+
+    public Optional<BlogDetailsVO> getBlogByBlogId(int userid, int blogid) {
+        String query = String.format(Queries.GET_BLOG_BY_BLOG_ID, userid, blogid);
+        ResultSet result = postgreSqlJDBC.executeQuery(query);
+        return sqlObjectMapper.mapBlog(result);
+
     }
 
 }

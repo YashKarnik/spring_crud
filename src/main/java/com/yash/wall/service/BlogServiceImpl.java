@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.yash.wall.entity.Blog;
+import com.yash.wall.exceptions.BlogNotFoundException;
 import com.yash.wall.exceptions.UserNotFoundException;
 import com.yash.wall.repository.BlogRepository;
 import com.yash.wall.vo.BlogDetailsVO;
@@ -27,7 +28,12 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public List<BlogDetailsVO> findBlogsByUserId(int userid) {
-        return blogRepository.getBlogByUserId(userid).orElseThrow(() -> new UserNotFoundException("test"));
+        return blogRepository.getBlogsByUserId(userid).orElseThrow(() -> new UserNotFoundException(userid));
 
+    }
+
+    @Override
+    public BlogDetailsVO findBlogByBlogId(int userid, int blogid) {
+        return blogRepository.getBlogByBlogId(userid, blogid).orElseThrow(() -> new BlogNotFoundException(blogid));
     }
 }
