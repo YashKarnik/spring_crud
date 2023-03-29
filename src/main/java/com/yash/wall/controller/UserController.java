@@ -2,6 +2,7 @@ package com.yash.wall.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,8 +34,8 @@ public class UserController {
 
     // read
     @GetMapping("/{id}")
-    public ResponseEntity<String> getUserById(@PathVariable int id) {
-        return new ResponseEntity<>(userService.findUserById(id).getUsername(), HttpStatus.OK);
+    public ResponseEntity<User> getUserById(@PathVariable int id) {
+        return new ResponseEntity<>(userService.findUserById(id), HttpStatus.OK);
     }
 
     // update
@@ -45,4 +46,10 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    // delete
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<HttpStatus> updateUser(@PathVariable int id) {
+        userService.deleteUserById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

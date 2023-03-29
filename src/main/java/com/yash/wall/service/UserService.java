@@ -9,7 +9,7 @@ public interface UserService {
     // read
     User findUserById(int id);
 
-    User findUserByUsername(String username);
+    User findUserByEmail(String username);
 
     // update
 
@@ -18,7 +18,8 @@ public interface UserService {
     void updateUserPasswordById(int id, String password);
 
     void updateUser(int id, String field, User user);
+
     // delete
-    // void deleteUserById(int id);
+    void deleteUserById(int id);
 
 }

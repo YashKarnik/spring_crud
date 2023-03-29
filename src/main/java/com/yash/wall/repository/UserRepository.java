@@ -20,8 +20,8 @@ public class UserRepository {
     SQLObjectMapper sqlObjectMapper;
 
     public void saveUser(User user) {
-        String query = String.format(Queries.INSERT_USER, user.getUsername(), user.getPassword());
-        postgreSqlJDBC.executeQuery(query);
+        String query = String.format(Queries.INSERT_USER, user.getEmail(), user.getUsername(), user.getPassword());
+        postgreSqlJDBC.executeUpdate(query);
 
     }
 
@@ -32,30 +32,30 @@ public class UserRepository {
 
     }
 
-    public Optional<User> getUserByUsername(String username) {
-        String query = String.format(Queries.GET_USER_BY_USERNAME, username);
+    public Optional<User> getUserByEmail(String email) {
+        String query = String.format(Queries.GET_USER_BY_EMAIL, email);
         ResultSet result = postgreSqlJDBC.executeQuery(query);
         return sqlObjectMapper.mapUser(result);
     }
 
-    // public void updateUser(User user) {
-    // String query = String.format(Queries.UPADTE_USER_BY_ID, user.getUsername(),
-    // user.getPassword(), user.getId());
-    // postgreSqlJDBC.executeQuery(query);
-    // }
-
-    public void updateUserUsernameById(int id, String username) {
+    public int updateUserUsernameById(int id, String username) {
         String query = String.format(Queries.UPDATE_USER_USERNAME_BY_ID, username, id);
-        postgreSqlJDBC.executeQuery(query);
+        return postgreSqlJDBC.executeUpdate(query);
     }
 
-    public void updateUserPasswordById(int id, String password) {
+    public int updateUserPasswordById(int id, String password) {
         String query = String.format(Queries.UPDATE_USER_PASSWORD_BY_ID, password, id);
-        postgreSqlJDBC.executeQuery(query);
+        return postgreSqlJDBC.executeUpdate(query);
     }
 
-    public void updateUser(int id, String field, User user) {
+    public int updateUserEmailById(int id, String email) {
+        String query = String.format(Queries.UPDATE_USER_EMAIL_BY_ID, email, id);
+        return postgreSqlJDBC.executeUpdate(query);
+    }
 
+    public void deleteuser(int id) {
+        String query = String.format(Queries.DELETE_USER_BY_ID, id);
+        postgreSqlJDBC.executeUpdate(query);
     }
 
 }

@@ -1,7 +1,6 @@
 package com.yash.wall.exceptions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.http.HttpHeaders;
@@ -18,11 +17,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ApplicationExceptionHandler extends
         ResponseEntityExceptionHandler {
+
     @ExceptionHandler({ UserNotFoundException.class })
     public ResponseEntity<Object> handleResourceNotFoundException(RuntimeException ex) {
-        ErrorResponse errorResponse = new ErrorResponse(Arrays.asList(
-                ex.getLocalizedMessage()));
-
+        ErrorResponse errorResponse = new ErrorResponse(ex.getLocalizedMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
@@ -31,6 +29,8 @@ public class ApplicationExceptionHandler extends
         ErrorResponse errorResponse = new ErrorResponse(ex.getLocalizedMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
+
+    // default
 
     @ExceptionHandler({ IllegalRequestEntityException.class })
     public ResponseEntity<Object> handleIllegalRequestParamsException(RuntimeException ex) {

@@ -40,17 +40,22 @@ public class PostgreSqlJDBC {
         }
     }
 
+    public int executeUpdate(String query) {
+        try {
+            Statement statement = this.getConnection().createStatement();
+            int affectedRows = statement.executeUpdate(query);
+            return affectedRows;
+        } catch (SQLException se) {
+            throw new DatabaseConnectionException(se);
+        }
+    }
+
     public ResultSet executeQuery(String query) {
         try {
             System.out.println(query);
             Statement statement = this.getConnection().createStatement();
-            if (query.startsWith("SELECT")) {
-                ResultSet resultSet = statement.executeQuery(query);
-                return resultSet;
-            } else {
-                statement.executeUpdate(query);
-                return null;
-            }
+            ResultSet resultSet = statement.executeQuery(query);
+            return resultSet;
 
         } catch (SQLException se) {
             throw new DatabaseConnectionException(se);

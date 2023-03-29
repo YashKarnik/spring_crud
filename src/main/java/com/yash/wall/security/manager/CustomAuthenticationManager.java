@@ -20,7 +20,7 @@ public class CustomAuthenticationManager implements AuthenticationManager {
     @Override
     public Authentication authenticate(Authentication authentication)
             throws AuthenticationException {
-        User user = userService.findUserByUsername(authentication.getPrincipal().toString());
+        User user = userService.findUserByEmail(authentication.getPrincipal().toString());
 
         if (!user.getPassword().equals(authentication.getCredentials()))
             throw new BadCredentialsException("Incorrect password");

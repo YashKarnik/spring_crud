@@ -7,6 +7,7 @@ import com.yash.wall.exceptions.IllegalRequestEntityException;
 import com.yash.wall.exceptions.UserNotFoundException;
 import com.yash.wall.repository.UserRepository;
 
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -14,11 +15,6 @@ import lombok.AllArgsConstructor;
 public class UserServiceImpl implements UserService {
 
     UserRepository userRepository;
-
-    @Override
-    public void saveUser(User user) {
-        userRepository.saveUser(user);
-    }
 
     @Override
     public User findUserById(int id) {
@@ -29,11 +25,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByUsername(String username) {
+    public User findUserByEmail(String username) {
         return userRepository
-                .getUserByUsername(username)
+                .getUserByEmail(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
 
+    }
+
+    @Override
+    public void saveUser(User user) {
+        userRepository.saveUser(user);
     }
 
     @Override
@@ -49,19 +50,42 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(int id, String field, User user) {
+
+        @Email(message = "asdfghjkl")
+        String email = user.getEmail();
+        String password = user.getPassword();
+        String username = user.getUsername();
+
         if (field.equals("username")) {
-            if (user.getUsername() != null)
-                userRepository.updateUserUsernameById(id, user.getUsername());
-            else
+            if (username != null) {
+                int affectedRows = userRepository.updateUserUsernameById(id, username);
+                if (affectedRows <= 0)
+                    throw new UserNotFoundException(id);
+            } else
                 throw new IllegalRequestEntityException();
+
         } else if (field.equals("password")) {
-            if (user.getPassword() != null)
-                userRepository.updateUserPasswordById(id, user.getPassword());
-            else
+            if (password != null) {
+                int affectedRows = userRepository.updateUserPasswordById(id, password);
+                if (affectedRows <= 0)
+                    throw new UserNotFoundException(id);
+            } else
+                throw new IllegalRequestEntityException();
+        } else if (field.equals("email")) {
+            if (email != null) {
+                int affectedRows = userRepository.updateUserEmailById(id, email);
+                if (affectedRows <= 0)
+                    throw new UserNotFoundException(id);
+            } else
                 throw new IllegalRequestEntityException();
         } else
             throw new IllegalRequestEntityException(field);
 
+    }
+
+    @Override
+    public void deleteUserById(int id) {
+        userRepository.deleteuser(id);
     }
 
 }

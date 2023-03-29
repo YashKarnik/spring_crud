@@ -32,7 +32,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         try {
 
             User user = new ObjectMapper().readValue(request.getInputStream(), User.class);
-            Authentication authentication = new UsernamePasswordAuthenticationToken(user.getUsername(),
+            Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(),
                     user.getPassword());
             return customAuthenticationManager.authenticate(authentication);
 
@@ -45,7 +45,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
             Authentication authResult) throws IOException, ServletException {
         String jwt = JWT.create().withSubject(authResult.getName())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 7200000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.JWT_TOKEN_EXPIRATION_MS))
                 .sign(Algorithm.HMAC512(SecurityConstants.JWT_SECRET));
         response.addHeader(SecurityConstants.AUTHORIZATION, SecurityConstants.BEARER + jwt);
 
@@ -55,7 +55,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException failed) throws IOException, ServletException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.getWriter().write(failed.getMessage());
+        response.getWriter().write(failed.getLocalizedMessage());
         response.getWriter().flush();
     }
 

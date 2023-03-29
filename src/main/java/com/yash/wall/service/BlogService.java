@@ -1,10 +1,13 @@
 package com.yash.wall.service;
 
+import java.util.List;
+
 import com.yash.wall.entity.Blog;
+import com.yash.wall.vo.BlogDetailsVO;
 
 public interface BlogService {
     void saveBlog(Blog user);
 
-    Blog findBlogById(int id);
+    List<BlogDetailsVO> findBlogsByUserId(int userid);
 
 }

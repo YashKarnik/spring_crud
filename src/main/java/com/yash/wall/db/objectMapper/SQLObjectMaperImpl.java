@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.yash.wall.entity.User;
 import com.yash.wall.exceptions.DatabaseConnectionException;
+import com.yash.wall.vo.BlogDetailsVO;
 
 import lombok.AllArgsConstructor;
 
@@ -21,10 +22,11 @@ public class SQLObjectMaperImpl implements SQLObjectMapper {
         try {
             List<User> users = new ArrayList<User>();
             while (resultSet != null && resultSet.next()) {
-                int id = resultSet.getInt("id");
+                int id = resultSet.getInt("userid");
+                String email = resultSet.getString("email");
                 String username = resultSet.getString("username");
-                String password = resultSet.getString("user_password");
-                User user = new User(id, username, password);
+                String password = resultSet.getString("password");
+                User user = new User(id, username, password, email);
                 users.add(user);
             }
             return Optional.ofNullable(users);
@@ -38,13 +40,51 @@ public class SQLObjectMaperImpl implements SQLObjectMapper {
     public Optional<User> mapUser(ResultSet resultSet) {
         try {
             while (resultSet != null && resultSet.next()) {
-                int id = resultSet.getInt("id");
+                int id = resultSet.getInt("userid");
+                String email = resultSet.getString("email");
                 String username = resultSet.getString("username");
-                String password = resultSet.getString("user_password");
-                User user = new User(id, username, password);
+                String password = resultSet.getString("password");
+                User user = new User(id, username, password, email);
                 return Optional.ofNullable(user);
             }
             return Optional.empty();
+        } catch (SQLException se) {
+            throw new DatabaseConnectionException(se);
+        }
+    }
+
+    @Override
+    public Optional<BlogDetailsVO> mapBlog(ResultSet resultSet) {
+
+        try {
+            while (resultSet != null && resultSet.next()) {
+                int blogid = resultSet.getInt("blogid");
+                int userid = resultSet.getInt("userid");
+                String title = resultSet.getString("title");
+                String content = resultSet.getString("content");
+                String dateCreated = resultSet.getString("created_at");
+                BlogDetailsVO blogdetails = new BlogDetailsVO(blogid, userid, title, content, dateCreated);
+                return Optional.ofNullable(blogdetails);
+            }
+            return Optional.empty();
+        } catch (SQLException se) {
+            throw new DatabaseConnectionException(se);
+        }
+    }
+
+    public Optional<List<BlogDetailsVO>> mapBlogs(ResultSet resultSet) {
+        List<BlogDetailsVO> blogs = new ArrayList<BlogDetailsVO>();
+        try {
+            while (resultSet != null && resultSet.next()) {
+                int blogid = resultSet.getInt("blogid");
+                int userid = resultSet.getInt("userid");
+                String title = resultSet.getString("title");
+                String content = resultSet.getString("content");
+                String dateCreated = resultSet.getString("created_at");
+                BlogDetailsVO blogdetails = new BlogDetailsVO(blogid, userid, title, content, dateCreated);
+                blogs.add(blogdetails);
+            }
+            return Optional.ofNullable(blogs);
         } catch (SQLException se) {
             throw new DatabaseConnectionException(se);
         }

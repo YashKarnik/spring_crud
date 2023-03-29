@@ -1,5 +1,6 @@
 package com.yash.wall.entity;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,4 +20,8 @@ public class User {
     private String username;
     @NotBlank(message = "Password cannot be blank")
     private String password;
+
+    @Email(message = "Email is improperly formatted")
+    @NotBlank(message = "Email cannot be blank")
+    private String email;
 }
