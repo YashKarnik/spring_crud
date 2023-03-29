@@ -25,12 +25,14 @@ import lombok.AllArgsConstructor;
 public class BlogController {
     BlogService blogService;
 
+    // create
     @PostMapping("/add")
     public ResponseEntity<HttpStatus> saveBlog(@Valid @RequestBody Blog blog) {
         blogService.saveBlog(blog);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    // read
     @GetMapping("/{userid}")
     public ResponseEntity<List<BlogDetailsVO>> getAllBlogsBuUserId(@PathVariable int userid) {
         return new ResponseEntity<>(blogService.findBlogsByUserId(userid), HttpStatus.CREATED);
@@ -41,9 +43,11 @@ public class BlogController {
         return new ResponseEntity<>(blogService.findBlogByBlogId(userid, blogid), HttpStatus.CREATED);
     }
 
-    // @PutMapping("/{id}")
-    // public ResponseEntity<HttpStatus> updateblogbyId(@PathVariable int id) {
-    // return new ResponseEntity<>(HttpStatus.OK);
-    // }
+    // update
+    @PutMapping("update")
+    public ResponseEntity<HttpStatus> updateblogbyId(@Valid @RequestBody Blog blog) {
+        blogService.updateBlogByBlogId(blog);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
