@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,9 +45,16 @@ public class BlogController {
     }
 
     // update
-    @PutMapping("update")
+    @PutMapping("/update")
     public ResponseEntity<HttpStatus> updateblogbyId(@Valid @RequestBody Blog blog) {
         blogService.updateBlogByBlogId(blog);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    // delete
+    @DeleteMapping("/delete")
+    public ResponseEntity<HttpStatus> deleteblogbyId(@Valid @RequestBody Blog blog) {
+        blogService.deleteBlogByBlogId(blog);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

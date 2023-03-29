@@ -9,6 +9,7 @@ import java.sql.Statement;
 import org.springframework.stereotype.Component;
 
 import com.yash.wall.exceptions.DatabaseConnectionException;
+import com.yash.wall.exceptions.NoRowsAffected;
 
 import lombok.AllArgsConstructor;
 
@@ -44,6 +45,8 @@ public class PostgreSqlJDBC {
         try {
             Statement statement = this.getConnection().createStatement();
             int affectedRows = statement.executeUpdate(query);
+            if (affectedRows <= 0)
+                throw new NoRowsAffected();
             return affectedRows;
         } catch (SQLException se) {
             throw new DatabaseConnectionException(se);

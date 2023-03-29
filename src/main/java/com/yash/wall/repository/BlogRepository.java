@@ -41,4 +41,16 @@ public class BlogRepository {
 
     }
 
+    // upadte
+    public void upadteBlogByBlogId(Blog blog) {
+        String query = String.format(Queries.UPDATE_BLOG_BY_BLOGID, blog.getTitle(), blog.getContent(),
+                blog.getUserid(), blog.getBlogid());
+        postgreSqlJDBC.executeUpdate(query);
+    }
+
+    // delete
+    public void deleteBlogByBlogId(Blog blog) {
+        String query = String.format(Queries.DELETE_BLOG_BY_BLOGID, blog.getUserid(), blog.getBlogid());
+        postgreSqlJDBC.executeUpdate(query);
+    }
 }

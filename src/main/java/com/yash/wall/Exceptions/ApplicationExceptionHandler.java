@@ -24,7 +24,7 @@ public class ApplicationExceptionHandler extends
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler({ DatabaseConnectionException.class })
+    @ExceptionHandler({ DatabaseConnectionException.class, NoRowsAffected.class })
     public ResponseEntity<Object> handledatabaseConnectionError(RuntimeException ex) {
         ErrorResponse errorResponse = new ErrorResponse(ex.getLocalizedMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);

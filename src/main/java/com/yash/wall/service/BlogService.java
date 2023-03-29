@@ -12,4 +12,8 @@ public interface BlogService {
 
     BlogDetailsVO findBlogByBlogId(int userid, int blogid);
 
+    void updateBlogByBlogId(Blog blog);
+
+    void deleteBlogByBlogId(Blog blog);
+
 }

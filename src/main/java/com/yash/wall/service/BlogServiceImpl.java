@@ -36,4 +36,15 @@ public class BlogServiceImpl implements BlogService {
     public BlogDetailsVO findBlogByBlogId(int userid, int blogid) {
         return blogRepository.getBlogByBlogId(userid, blogid).orElseThrow(() -> new BlogNotFoundException(blogid));
     }
+
+    @Override
+    public void updateBlogByBlogId(Blog blog) {
+        blogRepository.upadteBlogByBlogId(blog);
+    }
+
+    @Override
+    public void deleteBlogByBlogId(Blog blog) {
+        blogRepository.deleteBlogByBlogId(blog);
+    }
+
 }
