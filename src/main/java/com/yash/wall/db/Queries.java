@@ -11,9 +11,12 @@ public interface Queries {
     String DELETE_USER_BY_ID = "DELETE from user_details where userid=%s";
 
     String INSERT_BLOG = "INSERT INTO blog (userid,title,content) VALUES (%s,'%s','%s')";
-    String GET_BLOGS_BY_USER_ID = "SELECT b.* FROM user_details ud JOIN blog b ON ud.userid=b.userid WHERE ud.userid='%s'";
+    String GET_BLOGS_BY_USER_ID = "SELECT * FROM blog b WHERE b.userid=%s";
     String GET_BLOG_BY_BLOG_ID = "SELECT * FROM blog WHERE userid='%s' AND blogid='%s'";
     String UPDATE_BLOG_BY_BLOGID = "UPDATE blog SET title='%s',content='%s' WHERE userid='%s' AND blogid='%s'";
     String DELETE_BLOG_BY_BLOGID = "DELETE FROM blog WHERE userid=%s and blogid=%s";
+
+    String GET_COMMENTS_BY_BLOG_ID = "SELECT * FROM blog_comments WHERE blogid=%s";
+    String ADD_COMMENT_TO_BLOG = "INSERT INTO blog_comments (blogid, userid, \"content\") VALUES (%s,%s,'%s')";
 
 }

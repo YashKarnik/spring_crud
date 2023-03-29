@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.yash.wall.entity.User;
 import com.yash.wall.vo.BlogDetailsVO;
+import com.yash.wall.vo.CommentDetailsVO;
 
 public interface SQLObjectMapper {
     Optional<User> mapUser(ResultSet resultSet);
@@ -15,4 +16,7 @@ public interface SQLObjectMapper {
     Optional<BlogDetailsVO> mapBlog(ResultSet resultSet);
 
     Optional<List<BlogDetailsVO>> mapBlogs(ResultSet resultSet);
+
+    Optional<List<CommentDetailsVO>> mapComments(ResultSet resultSet);
+
 }

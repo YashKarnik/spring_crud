@@ -9,12 +9,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class BlogDetailsVO {
+public class CommentDetailsVO {
+    private int commentid;
     private int blogid;
     private int userid;
-    private String title;
     private String content;
     private Date dateCreated;
-    // private Likes likes;
-
 }

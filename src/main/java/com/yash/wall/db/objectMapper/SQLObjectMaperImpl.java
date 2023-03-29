@@ -3,6 +3,7 @@ package com.yash.wall.db.objectMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.yash.wall.entity.User;
 import com.yash.wall.exceptions.DatabaseConnectionException;
 import com.yash.wall.vo.BlogDetailsVO;
+import com.yash.wall.vo.CommentDetailsVO;
 
 import lombok.AllArgsConstructor;
 
@@ -62,7 +64,7 @@ public class SQLObjectMaperImpl implements SQLObjectMapper {
                 int userid = resultSet.getInt("userid");
                 String title = resultSet.getString("title");
                 String content = resultSet.getString("content");
-                String dateCreated = resultSet.getString("created_at");
+                Date dateCreated = resultSet.getTimestamp("created_at");
                 BlogDetailsVO blogdetails = new BlogDetailsVO(blogid, userid, title, content, dateCreated);
                 return Optional.ofNullable(blogdetails);
             }
@@ -80,11 +82,30 @@ public class SQLObjectMaperImpl implements SQLObjectMapper {
                 int userid = resultSet.getInt("userid");
                 String title = resultSet.getString("title");
                 String content = resultSet.getString("content");
-                String dateCreated = resultSet.getString("created_at");
+                Date dateCreated = resultSet.getTimestamp("created_at");
                 BlogDetailsVO blogdetails = new BlogDetailsVO(blogid, userid, title, content, dateCreated);
                 blogs.add(blogdetails);
             }
             return Optional.ofNullable(blogs);
+        } catch (SQLException se) {
+            throw new DatabaseConnectionException(se);
+        }
+    }
+
+    public Optional<List<CommentDetailsVO>> mapComments(ResultSet resultSet) {
+        List<CommentDetailsVO> comments = new ArrayList<CommentDetailsVO>();
+        try {
+            while (resultSet != null && resultSet.next()) {
+                int blogid = resultSet.getInt("blogid");
+                int userid = resultSet.getInt("userid");
+                int commentid = resultSet.getInt("commentid");
+                String content = resultSet.getString("content");
+                Date dateCreated = resultSet.getTimestamp("created_at");
+                CommentDetailsVO commentDetailsVO = new CommentDetailsVO(commentid, blogid, userid, content,
+                        dateCreated);
+                comments.add(commentDetailsVO);
+            }
+            return Optional.ofNullable(comments);
         } catch (SQLException se) {
             throw new DatabaseConnectionException(se);
         }
