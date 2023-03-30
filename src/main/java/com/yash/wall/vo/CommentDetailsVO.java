@@ -11,7 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CommentDetailsVO {
     private int commentid;
-    private int blogid;
     private int userid;
     private String content;
     private Date dateCreated;

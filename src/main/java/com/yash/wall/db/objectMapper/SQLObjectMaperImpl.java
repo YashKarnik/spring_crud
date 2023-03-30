@@ -57,7 +57,6 @@ public class SQLObjectMaperImpl implements SQLObjectMapper {
 
     @Override
     public Optional<BlogDetailsVO> mapBlog(ResultSet resultSet) {
-
         try {
             while (resultSet != null && resultSet.next()) {
                 int blogid = resultSet.getInt("blogid");
@@ -72,6 +71,7 @@ public class SQLObjectMaperImpl implements SQLObjectMapper {
         } catch (SQLException se) {
             throw new DatabaseConnectionException(se);
         }
+
     }
 
     public Optional<List<BlogDetailsVO>> mapBlogs(ResultSet resultSet) {
@@ -96,13 +96,12 @@ public class SQLObjectMaperImpl implements SQLObjectMapper {
         List<CommentDetailsVO> comments = new ArrayList<CommentDetailsVO>();
         try {
             while (resultSet != null && resultSet.next()) {
-                int blogid = resultSet.getInt("blogid");
-                int userid = resultSet.getInt("userid");
                 int commentid = resultSet.getInt("commentid");
+                // int blogid = resultSet.getInt("blogid");
+                int userid = resultSet.getInt("userid");
                 String content = resultSet.getString("content");
                 Date dateCreated = resultSet.getTimestamp("created_at");
-                CommentDetailsVO commentDetailsVO = new CommentDetailsVO(commentid, blogid, userid, content,
-                        dateCreated);
+                CommentDetailsVO commentDetailsVO = new CommentDetailsVO(commentid, userid, content, dateCreated);
                 comments.add(commentDetailsVO);
             }
             return Optional.ofNullable(comments);

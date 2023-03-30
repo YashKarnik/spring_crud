@@ -41,7 +41,7 @@ public class BlogController {
 
     @GetMapping("/{userid}/{blogid}")
     public ResponseEntity<BlogDetailsVO> getBlogByBlogId(@PathVariable int userid, @PathVariable int blogid) {
-        return new ResponseEntity<>(blogService.findBlogByBlogId(userid, blogid), HttpStatus.CREATED);
+        return new ResponseEntity<>(blogService.findBlogDetailsByBlogId(userid, blogid), HttpStatus.CREATED);
     }
 
     // update

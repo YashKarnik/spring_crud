@@ -11,6 +11,7 @@ import com.yash.wall.db.Queries;
 import com.yash.wall.db.objectMapper.SQLObjectMapper;
 import com.yash.wall.entity.Blog;
 import com.yash.wall.vo.BlogDetailsVO;
+import com.yash.wall.vo.CommentDetailsVO;
 
 import lombok.AllArgsConstructor;
 
@@ -39,6 +40,12 @@ public class BlogRepository {
         ResultSet result = postgreSqlJDBC.executeQuery(query);
         return sqlObjectMapper.mapBlog(result);
 
+    }
+
+    public Optional<List<CommentDetailsVO>> getAllCommentsByBlogId(int blogid) {
+        String query = String.format(Queries.GET_COMMENTS_BY_BLOG_ID, blogid);
+        ResultSet result = postgreSqlJDBC.executeQuery(query);
+        return sqlObjectMapper.mapComments(result);
     }
 
     // upadte

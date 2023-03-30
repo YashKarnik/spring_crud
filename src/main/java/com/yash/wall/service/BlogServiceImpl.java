@@ -9,6 +9,7 @@ import com.yash.wall.exceptions.BlogNotFoundException;
 import com.yash.wall.exceptions.UserNotFoundException;
 import com.yash.wall.repository.BlogRepository;
 import com.yash.wall.vo.BlogDetailsVO;
+import com.yash.wall.vo.CommentDetailsVO;
 
 import lombok.AllArgsConstructor;
 
@@ -33,8 +34,13 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public BlogDetailsVO findBlogByBlogId(int userid, int blogid) {
-        return blogRepository.getBlogByBlogId(userid, blogid).orElseThrow(() -> new BlogNotFoundException(blogid));
+    public BlogDetailsVO findBlogDetailsByBlogId(int userid, int blogid) {
+        List<CommentDetailsVO> comments = blogRepository.getAllCommentsByBlogId(blogid)
+                .orElseThrow(() -> new BlogNotFoundException(blogid));
+        BlogDetailsVO blog = blogRepository.getBlogByBlogId(userid, blogid)
+                .orElseThrow(() -> new BlogNotFoundException(blogid));
+        blog.setCommentDetailsVO(comments);
+        return blog;
     }
 
     @Override
