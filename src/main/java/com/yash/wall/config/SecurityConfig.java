@@ -27,7 +27,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(
                 customAuthenticationManager);
-        http
+        http.cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.GET, "/user/*").permitAll()
