@@ -31,6 +31,8 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.GET, "/user/*").permitAll()
+                .requestMatchers(HttpMethod.GET, "/v3/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
                 .requestMatchers(HttpMethod.POST, SecurityConstants.REGISTER_PATH).permitAll()
                 .anyRequest().authenticated()
                 .and()
