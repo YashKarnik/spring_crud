@@ -7,7 +7,6 @@ import com.yash.wall.exceptions.IllegalRequestEntityException;
 import com.yash.wall.exceptions.UserNotFoundException;
 import com.yash.wall.repository.UserRepository;
 
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -50,8 +49,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(int id, String field, User user) {
-
-        @Email(message = "asdfghjkl")
         String email = user.getEmail();
         String password = user.getPassword();
         String username = user.getUsername();
