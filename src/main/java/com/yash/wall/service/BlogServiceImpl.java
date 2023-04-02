@@ -2,6 +2,7 @@ package com.yash.wall.service;
 
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.yash.wall.entity.Blog;
@@ -30,6 +31,13 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<BlogDetailsVO> findBlogsByUserId(int userid) {
         return blogRepository.getBlogsByUserId(userid).orElseThrow(() -> new UserNotFoundException(userid));
+
+    }
+
+    @Override
+    public List<BlogDetailsVO> findBlogDetailsForLoggedInUser() {
+        String emailId = SecurityContextHolder.getContext().getAuthentication().getName();
+        return blogRepository.getBlogsByEmailId(emailId).orElseThrow(() -> new UserNotFoundException(emailId));
 
     }
 

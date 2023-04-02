@@ -30,11 +30,11 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         }
         String token = header.replace(SecurityConstants.BEARER, "").trim();
 
-        String username = JWT.require(Algorithm.HMAC512(SecurityConstants.JWT_SECRET))
+        String email = JWT.require(Algorithm.HMAC512(SecurityConstants.JWT_SECRET))
                 .build()
                 .verify(token)
                 .getSubject();
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, Arrays.asList());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(email, null, Arrays.asList());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
 

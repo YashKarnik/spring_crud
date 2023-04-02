@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import com.yash.wall.db.PostgreSqlJDBC;
@@ -31,6 +32,12 @@ public class BlogRepository {
     // read
     public Optional<List<BlogDetailsVO>> getBlogsByUserId(int userid) {
         String query = String.format(Queries.GET_BLOGS_BY_USER_ID, userid);
+        ResultSet result = postgreSqlJDBC.executeQuery(query);
+        return sqlObjectMapper.mapBlogs(result);
+    }
+
+    public Optional<List<BlogDetailsVO>> getBlogsByEmailId(String emailId) {
+        String query = String.format(Queries.GET_BLOGS_BY_EMAIL_ID, emailId);
         ResultSet result = postgreSqlJDBC.executeQuery(query);
         return sqlObjectMapper.mapBlogs(result);
     }

@@ -34,15 +34,23 @@ public class BlogController {
     }
 
     // read
-    @GetMapping("/{userid}")
-    public ResponseEntity<List<BlogDetailsVO>> getAllBlogsBuUserId(@PathVariable int userid) {
-        return new ResponseEntity<>(blogService.findBlogsByUserId(userid), HttpStatus.CREATED);
+    // @GetMapping("/{userid}")
+    // public ResponseEntity<List<BlogDetailsVO>> getAllBlogsBuUserId(@PathVariable
+    // int userid) {
+    // return new ResponseEntity<>(blogService.findBlogsByUserId(userid),
+    // HttpStatus.CREATED);
+    // }
+    @GetMapping("/all")
+    public ResponseEntity<List<BlogDetailsVO>> getAllBlogsBuUserId() {
+        return new ResponseEntity<>(blogService.findBlogDetailsForLoggedInUser(), HttpStatus.OK);
     }
 
-    @GetMapping("/{userid}/{blogid}")
-    public ResponseEntity<BlogDetailsVO> getBlogByBlogId(@PathVariable int userid, @PathVariable int blogid) {
-        return new ResponseEntity<>(blogService.findBlogDetailsByBlogId(userid, blogid), HttpStatus.CREATED);
-    }
+    // @GetMapping("/{userid}/{blogid}")
+    // public ResponseEntity<BlogDetailsVO> getBlogByBlogId(@PathVariable int
+    // userid, @PathVariable int blogid) {
+    // return new ResponseEntity<>(blogService.findBlogDetailsByBlogId(userid,
+    // blogid), HttpStatus.CREATED);
+    // }
 
     // update
     @PutMapping("/update")
