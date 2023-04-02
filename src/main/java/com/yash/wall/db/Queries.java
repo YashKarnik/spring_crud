@@ -23,7 +23,7 @@ public interface Queries {
     String DELETE_BLOG_BY_BLOGID = "DELETE FROM blog WHERE userid=%s and blogid=%s";
 
     // comments
-    String GET_COMMENTS_BY_BLOG_ID = "SELECT * FROM blog_comments WHERE blogid=%s";
+    String GET_COMMENTS_BY_BLOG_ID = "SELECT bc.*,ud.username  FROM blog_comments bc  JOIN user_details ud ON bc.userid = ud.userid WHERE bc.blogid= %s";
     String ADD_COMMENT_TO_BLOG = "INSERT INTO blog_comments (blogid, userid, \"content\") VALUES (%s,%s,'%s')";
 
 }

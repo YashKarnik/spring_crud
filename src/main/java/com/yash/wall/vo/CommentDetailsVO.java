@@ -12,6 +12,7 @@ import lombok.Setter;
 public class CommentDetailsVO {
     private int commentid;
     private int userid;
+    private String username;
     private String content;
     private Date dateCreated;
 }

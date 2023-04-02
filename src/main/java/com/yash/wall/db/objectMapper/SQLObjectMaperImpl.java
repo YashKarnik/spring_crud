@@ -97,11 +97,12 @@ public class SQLObjectMaperImpl implements SQLObjectMapper {
         try {
             while (resultSet != null && resultSet.next()) {
                 int commentid = resultSet.getInt("commentid");
-                // int blogid = resultSet.getInt("blogid");
+                String username = resultSet.getString("username");
                 int userid = resultSet.getInt("userid");
                 String content = resultSet.getString("content");
                 Date dateCreated = resultSet.getTimestamp("created_at");
-                CommentDetailsVO commentDetailsVO = new CommentDetailsVO(commentid, userid, content, dateCreated);
+                CommentDetailsVO commentDetailsVO = new CommentDetailsVO(commentid, userid, username, content,
+                        dateCreated);
                 comments.add(commentDetailsVO);
             }
             return Optional.ofNullable(comments);
