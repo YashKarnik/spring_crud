@@ -17,7 +17,7 @@ public interface Queries {
 
     String GET_BLOGS_BY_USER_ID = "SELECT * FROM blog b WHERE b.userid = %s";
     String GET_BLOGS_BY_EMAIL_ID = "SELECT b.* FROM blog b JOIN user_details ud ON b.userid = ud.userid WHERE ud.email = '%s'";
-    String GET_BLOG_BY_BLOG_ID = "SELECT * FROM blog b WHERE b.userid=%s AND b.blogid = %s";
+    String GET_BLOG_BY_BLOG_ID = "SELECT b.* FROM blog b JOIN user_details ud ON b.userid = ud.userid WHERE ud.email = '%s' AND b.blogid =%s";
 
     String UPDATE_BLOG_BY_BLOGID = "UPDATE blog SET title='%s',content='%s' WHERE userid='%s' AND blogid='%s'";
     String DELETE_BLOG_BY_BLOGID = "DELETE FROM blog WHERE userid=%s and blogid=%s";

@@ -10,7 +10,7 @@ public interface BlogService {
 
     List<BlogDetailsVO> findBlogsByUserId(int userid);
 
-    BlogDetailsVO findBlogDetailsByBlogId(int userid, int blogid);
+    BlogDetailsVO findBlogDetailsByBlogId(int blogid);
 
     List<BlogDetailsVO> findBlogDetailsForLoggedInUser();
 

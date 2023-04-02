@@ -42,10 +42,11 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public BlogDetailsVO findBlogDetailsByBlogId(int userid, int blogid) {
+    public BlogDetailsVO findBlogDetailsByBlogId(int blogid) {
+        String emailId = SecurityContextHolder.getContext().getAuthentication().getName();
         List<CommentDetailsVO> comments = blogRepository.getAllCommentsByBlogId(blogid)
                 .orElseThrow(() -> new BlogNotFoundException(blogid));
-        BlogDetailsVO blog = blogRepository.getBlogByBlogId(userid, blogid)
+        BlogDetailsVO blog = blogRepository.getBlogByBlogId(emailId, blogid)
                 .orElseThrow(() -> new BlogNotFoundException(blogid));
         blog.setCommentDetailsVO(comments);
         return blog;

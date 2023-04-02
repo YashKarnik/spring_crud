@@ -45,12 +45,10 @@ public class BlogController {
         return new ResponseEntity<>(blogService.findBlogDetailsForLoggedInUser(), HttpStatus.OK);
     }
 
-    // @GetMapping("/{userid}/{blogid}")
-    // public ResponseEntity<BlogDetailsVO> getBlogByBlogId(@PathVariable int
-    // userid, @PathVariable int blogid) {
-    // return new ResponseEntity<>(blogService.findBlogDetailsByBlogId(userid,
-    // blogid), HttpStatus.CREATED);
-    // }
+    @GetMapping("/{blogid}")
+    public ResponseEntity<BlogDetailsVO> getBlogByBlogId(@PathVariable int blogid) {
+        return new ResponseEntity<>(blogService.findBlogDetailsByBlogId(blogid), HttpStatus.CREATED);
+    }
 
     // update
     @PutMapping("/update")
