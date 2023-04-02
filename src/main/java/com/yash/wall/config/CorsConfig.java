@@ -20,7 +20,8 @@ public class CorsConfig {
                         .addMapping("/**")
                         .allowedMethods("GET", "POST")
                         .allowedOrigins("http://localhost:3000")
-                        .exposedHeaders(SecurityConstants.AUTHORIZATION);
+                        .exposedHeaders(SecurityConstants.AUTHORIZATION)
+                        .allowCredentials(true);
             }
         };
     }

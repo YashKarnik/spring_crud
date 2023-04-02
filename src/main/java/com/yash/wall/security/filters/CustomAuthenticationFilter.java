@@ -17,6 +17,7 @@ import com.yash.wall.security.manager.CustomAuthenticationManager;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;;
@@ -47,7 +48,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         String jwt = JWT.create().withSubject(authResult.getName())
                 .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.JWT_TOKEN_EXPIRATION_MS))
                 .sign(Algorithm.HMAC512(SecurityConstants.JWT_SECRET));
-        response.addHeader(SecurityConstants.AUTHORIZATION, SecurityConstants.BEARER + jwt);
+        response.addCookie(new Cookie(SecurityConstants.AUTH_COOKIE, jwt));
 
     }
 
