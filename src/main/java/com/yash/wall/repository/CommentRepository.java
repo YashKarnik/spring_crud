@@ -28,9 +28,8 @@ public class CommentRepository {
     }
 
     // create
-    public void addCommentToBlog(Comment comment) {
-        String query = String.format(Queries.ADD_COMMENT_TO_BLOG, comment.getBlogid(), comment.getUserid(),
-                comment.getContent());
+    public void addCommentToBlog(String emailId, Comment comment) {
+        String query = String.format(Queries.ADD_COMMENT_TO_BLOG, emailId, comment.getBlogid(), comment.getContent());
         postgreSqlJDBC.executeUpdate(query);
     }
 }

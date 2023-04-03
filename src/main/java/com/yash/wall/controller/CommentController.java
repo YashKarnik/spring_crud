@@ -31,7 +31,7 @@ public class CommentController {
     }
 
     // add
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<List<CommentDetailsVO>> addCommentstoBlog(@Valid @RequestBody Comment comment) {
         commentService.addCommentToBlog(comment);
         return new ResponseEntity<>(HttpStatus.CREATED);

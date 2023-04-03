@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.yash.wall.db.PostgreSqlJDBC;
 import com.yash.wall.db.Queries;
 import com.yash.wall.db.objectMapper.SQLObjectMapper;
-import com.yash.wall.entity.Blog;
 import com.yash.wall.vo.BlogDetailsVO;
 import com.yash.wall.vo.CommentDetailsVO;
 
@@ -22,8 +21,8 @@ public class BlogRepository {
     SQLObjectMapper sqlObjectMapper;
 
     // create
-    public int saveBlog(Blog blog) {
-        String query = String.format(Queries.INSERT_BLOG, blog.getUserid(), blog.getContent(), blog.getTitle());
+    public int saveBlog(String email, String content, String title) {
+        String query = String.format(Queries.INSERT_BLOG, email, content, title);
         int affectedRows = postgreSqlJDBC.executeUpdate(query);
         return affectedRows;
     }
@@ -55,15 +54,14 @@ public class BlogRepository {
     }
 
     // upadte
-    public void upadteBlogByBlogId(Blog blog) {
-        String query = String.format(Queries.UPDATE_BLOG_BY_BLOGID, blog.getTitle(), blog.getContent(),
-                blog.getUserid(), blog.getBlogid());
+    public void upadteBlogByBlogId(String email, int blogid, String title, String content) {
+        String query = String.format(Queries.UPDATE_BLOG_BY_BLOGID, title, content, blogid, email);
         postgreSqlJDBC.executeUpdate(query);
     }
 
     // delete
-    public void deleteBlogByBlogId(Blog blog) {
-        String query = String.format(Queries.DELETE_BLOG_BY_BLOGID, blog.getUserid(), blog.getBlogid());
+    public void deleteBlogByBlogId(String email, String blogid) {
+        String query = String.format(Queries.DELETE_BLOG_BY_BLOGID, blogid, email);
         postgreSqlJDBC.executeUpdate(query);
     }
 }

@@ -13,7 +13,6 @@ public class Comment {
     private int commentid;
     @Positive(message = "Illegal id")
     private int blogid;
-    @Positive(message = "Illegal id")
     private int userid;
     @NotNull(message = "Comment cannot be blank")
     private String content;

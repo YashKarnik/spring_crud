@@ -6,7 +6,7 @@ import com.yash.wall.entity.Blog;
 import com.yash.wall.vo.BlogDetailsVO;
 
 public interface BlogService {
-    void saveBlog(Blog user);
+    void saveBlog(Blog blog);
 
     List<BlogDetailsVO> findBlogsByUserId(int userid);
 
@@ -16,6 +16,6 @@ public interface BlogService {
 
     void updateBlogByBlogId(Blog blog);
 
-    void deleteBlogByBlogId(Blog blog);
+    void deleteBlogByBlogId(String blogid);
 
 }

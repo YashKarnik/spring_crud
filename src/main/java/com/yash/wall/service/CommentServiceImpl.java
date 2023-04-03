@@ -2,6 +2,7 @@ package com.yash.wall.service;
 
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.yash.wall.entity.Comment;
@@ -24,6 +25,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void addCommentToBlog(Comment comment) {
-        commentRepository.addCommentToBlog(comment);
+        String emailId = SecurityContextHolder.getContext().getAuthentication().getName();
+        commentRepository.addCommentToBlog(emailId, comment);
     }
 }

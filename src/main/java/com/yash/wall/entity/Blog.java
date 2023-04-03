@@ -1,7 +1,6 @@
 package com.yash.wall.entity;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +18,5 @@ public class Blog {
     private String content;
     @NotBlank(message = "Title cannot be blank")
     private String title;
-    @Positive(message = "Illegal id")
     private int userid;
 }

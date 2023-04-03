@@ -43,6 +43,7 @@ public class PostgreSqlJDBC {
 
     public int executeUpdate(String query) {
         try {
+            System.out.println(query);
             Statement statement = this.getConnection().createStatement();
             int affectedRows = statement.executeUpdate(query);
             if (affectedRows <= 0)

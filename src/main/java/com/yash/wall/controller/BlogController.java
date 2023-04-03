@@ -27,10 +27,10 @@ public class BlogController {
     BlogService blogService;
 
     // create
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<HttpStatus> saveBlog(@Valid @RequestBody Blog blog) {
         blogService.saveBlog(blog);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     // read
@@ -40,7 +40,7 @@ public class BlogController {
     // return new ResponseEntity<>(blogService.findBlogsByUserId(userid),
     // HttpStatus.CREATED);
     // }
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<BlogDetailsVO>> getAllBlogsBuUserId() {
         return new ResponseEntity<>(blogService.findBlogDetailsForLoggedInUser(), HttpStatus.OK);
     }
@@ -51,16 +51,16 @@ public class BlogController {
     }
 
     // update
-    @PutMapping("/update")
+    @PutMapping
     public ResponseEntity<HttpStatus> updateblogbyId(@Valid @RequestBody Blog blog) {
         blogService.updateBlogByBlogId(blog);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // delete
-    @DeleteMapping("/delete")
-    public ResponseEntity<HttpStatus> deleteblogbyId(@Valid @RequestBody Blog blog) {
-        blogService.deleteBlogByBlogId(blog);
+    @DeleteMapping("/{blogid}")
+    public ResponseEntity<HttpStatus> deleteblogbyId(@PathVariable String blogid) {
+        blogService.deleteBlogByBlogId(blogid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

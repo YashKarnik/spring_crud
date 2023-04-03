@@ -25,7 +25,8 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public void saveBlog(Blog blog) {
-        blogRepository.saveBlog(blog);
+        String emailId = SecurityContextHolder.getContext().getAuthentication().getName();
+        blogRepository.saveBlog(emailId, blog.getContent(), blog.getTitle());
     }
 
     @Override
@@ -54,12 +55,14 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public void updateBlogByBlogId(Blog blog) {
-        blogRepository.upadteBlogByBlogId(blog);
+        String emailId = SecurityContextHolder.getContext().getAuthentication().getName();
+        blogRepository.upadteBlogByBlogId(emailId, blog.getBlogid(), blog.getTitle(), blog.getContent());
     }
 
     @Override
-    public void deleteBlogByBlogId(Blog blog) {
-        blogRepository.deleteBlogByBlogId(blog);
+    public void deleteBlogByBlogId(String blogid) {
+        String emailId = SecurityContextHolder.getContext().getAuthentication().getName();
+        blogRepository.deleteBlogByBlogId(emailId, blogid);
     }
 
 }
