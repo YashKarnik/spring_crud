@@ -11,13 +11,9 @@ function Login() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const userService = new UserService();
-    try {
-      await userService.loginUser(email, password);
-      navigate('/blogs');
-    } catch (e: any) {
-      console.log(e.message);
-      setError(e.message);
-    }
+
+    await userService.loginUser(email, password);
+    navigate('/blogs');
   }
 
   return (
