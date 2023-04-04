@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.yash.wall.entity.Blog;
 import com.yash.wall.exceptions.BlogNotFoundException;
+import com.yash.wall.exceptions.DatabaseConnectionException;
 import com.yash.wall.exceptions.UserNotFoundException;
 import com.yash.wall.repository.BlogRepository;
 import com.yash.wall.vo.BlogDetailsVO;
@@ -49,6 +50,27 @@ public class BlogServiceImpl implements BlogService {
                 .orElseThrow(() -> new BlogNotFoundException(blogid));
         BlogDetailsVO blog = blogRepository.getBlogByBlogId(emailId, blogid)
                 .orElseThrow(() -> new BlogNotFoundException(blogid));
+        blog.setCommentDetailsVO(comments);
+        return blog;
+    }
+
+    @Override
+    public List<BlogDetailsVO> findBlogsPublicBlogs(int limit, int pageNumber) {
+        int offest = limit * (pageNumber - 1);
+        return blogRepository.getAllPublicBlogs(limit, offest).orElseThrow(() -> new DatabaseConnectionException());
+    }
+
+    @Override
+    public Integer getPublicBlogCount() {
+        return blogRepository.getAllPublicBlogCount().orElseThrow(() -> new DatabaseConnectionException());
+    }
+
+    @Override
+    public BlogDetailsVO findPublicBlogByBlogid(int blogid) {
+        List<CommentDetailsVO> comments = blogRepository.getAllCommentsByBlogId(blogid)
+                .orElseThrow(() -> new BlogNotFoundException(blogid));
+        BlogDetailsVO blog = blogRepository.getPublicBlogByBlogId(blogid)
+                .orElseThrow(() -> new DatabaseConnectionException());
         blog.setCommentDetailsVO(comments);
         return blog;
     }

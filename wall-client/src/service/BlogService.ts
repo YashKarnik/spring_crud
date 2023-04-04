@@ -35,6 +35,20 @@ class BlogService {
 
     }
 
+    async getPublicBlogs(limit: number = 10, pageNumber: number = 10) {
+        const path = `blog/explore?limit=${limit}&pageNumber=${pageNumber}`
+        return await requestHelper('get', path)
+    }
+
+    async getPublicBlogByBlogId(blogid: number) {
+        const path = `blog/explore/${blogid}`
+        return await requestHelper('get', path)
+    }
+
+    async getPublicBlogsCount() {
+        const path = `blog/count`
+        return await requestHelper('get', path)
+    }
 }
 
 export default BlogService

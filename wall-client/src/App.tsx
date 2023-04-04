@@ -6,14 +6,15 @@ import { AuthContextProvider, useAuthContext } from './context/AuthContext';
 import Blogs from './components/blog/Blogs';
 import Blog from './components/blog/Blog';
 import UpdateBlog from './components/blog/UpdateBlog';
+import ExploreBlogs from './components/explore/ExploreBlogs';
+import ExploreBlog from './components/explore/ExploreBlog';
 function App() {
   return (
     <AuthContextProvider>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Login />}>
-            <Route path='/login' element={<Login />} />
-          </Route>
+          <Route path='/' element={<ExploreBlogs />} />
+          <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/blogs' element={<ProtectedRoute element={Blogs} />} />
           <Route
@@ -24,6 +25,8 @@ function App() {
             path='/blogs/:blogid/update'
             element={<ProtectedRoute element={UpdateBlog} />}
           />
+          <Route path='/explore' element={<ExploreBlogs />} />
+          <Route path='/explore/:blogid' element={<ExploreBlog />} />
         </Routes>
       </BrowserRouter>
     </AuthContextProvider>

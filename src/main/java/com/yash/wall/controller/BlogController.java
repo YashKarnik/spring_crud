@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yash.wall.entity.Blog;
@@ -34,12 +35,11 @@ public class BlogController {
     }
 
     // read
-    // @GetMapping("/{userid}")
-    // public ResponseEntity<List<BlogDetailsVO>> getAllBlogsBuUserId(@PathVariable
-    // int userid) {
-    // return new ResponseEntity<>(blogService.findBlogsByUserId(userid),
-    // HttpStatus.CREATED);
-    // }
+    @GetMapping("/count")
+    public ResponseEntity<Integer> getAllBlogsCount() {
+        return new ResponseEntity<>(blogService.getPublicBlogCount(), HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity<List<BlogDetailsVO>> getAllBlogsBuUserId() {
         return new ResponseEntity<>(blogService.findBlogDetailsForLoggedInUser(), HttpStatus.OK);
@@ -62,6 +62,17 @@ public class BlogController {
     public ResponseEntity<HttpStatus> deleteblogbyId(@PathVariable String blogid) {
         blogService.deleteBlogByBlogId(blogid);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/explore")
+    public ResponseEntity<List<BlogDetailsVO>> getAllPublicBlogs(@RequestParam(defaultValue = "10") int limit,
+            @RequestParam(defaultValue = "1") int pageNumber) {
+        return new ResponseEntity<>(blogService.findBlogsPublicBlogs(limit, pageNumber), HttpStatus.OK);
+    }
+
+    @GetMapping("/explore/{blogid}")
+    public ResponseEntity<BlogDetailsVO> getPublicBlogByBlogid(@PathVariable int blogid) {
+        return new ResponseEntity<>(blogService.findPublicBlogByBlogid(blogid), HttpStatus.OK);
     }
 
 }

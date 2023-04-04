@@ -19,4 +19,6 @@ public interface SQLObjectMapper {
 
     Optional<List<CommentDetailsVO>> mapComments(ResultSet resultSet);
 
+    Optional<Integer> mapCount(ResultSet resultSet);
+
 }

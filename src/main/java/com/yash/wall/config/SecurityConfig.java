@@ -33,6 +33,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/user/*").permitAll()
                 .requestMatchers(HttpMethod.GET, "/v3/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/blog/explore/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/blog/count").permitAll()
                 .requestMatchers(HttpMethod.POST, SecurityConstants.REGISTER_PATH).permitAll()
                 .anyRequest().authenticated()
                 .and()

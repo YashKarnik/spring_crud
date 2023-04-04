@@ -110,4 +110,15 @@ public class SQLObjectMaperImpl implements SQLObjectMapper {
             throw new DatabaseConnectionException(se);
         }
     }
+
+    @Override
+    public Optional<Integer> mapCount(ResultSet resultSet) {
+        try {
+            if (resultSet != null && resultSet.next())
+                return Optional.ofNullable(resultSet.getInt("count"));
+            return Optional.empty();
+        } catch (SQLException se) {
+            throw new DatabaseConnectionException(se);
+        }
+    }
 }

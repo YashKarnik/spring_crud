@@ -10,9 +10,15 @@ public interface BlogService {
 
     List<BlogDetailsVO> findBlogsByUserId(int userid);
 
+    List<BlogDetailsVO> findBlogsPublicBlogs(int limit, int pageNumber);
+
+    BlogDetailsVO findPublicBlogByBlogid(int blogid);
+
     BlogDetailsVO findBlogDetailsByBlogId(int blogid);
 
     List<BlogDetailsVO> findBlogDetailsForLoggedInUser();
+
+    Integer getPublicBlogCount();
 
     void updateBlogByBlogId(Blog blog);
 

@@ -53,6 +53,26 @@ public class BlogRepository {
         return sqlObjectMapper.mapComments(result);
     }
 
+    public Optional<List<BlogDetailsVO>> getAllPublicBlogs(int limit, int offest) {
+        String query = String.format(Queries.GET_ALL_PUBLIC_BLOGS, limit, offest);
+        ResultSet result = postgreSqlJDBC.executeQuery(query);
+        return sqlObjectMapper.mapBlogs(result);
+
+    }
+
+    public Optional<BlogDetailsVO> getPublicBlogByBlogId(int blogid) {
+        String query = String.format(Queries.GET_PUBLIC_BLOG_BY_BLOG_ID, blogid);
+        ResultSet result = postgreSqlJDBC.executeQuery(query);
+        return sqlObjectMapper.mapBlog(result);
+
+    }
+
+    public Optional<Integer> getAllPublicBlogCount() {
+        String query = String.format(Queries.GET_ALL_PUBLIC_BLOGS_COUNT);
+        ResultSet result = postgreSqlJDBC.executeQuery(query);
+        return sqlObjectMapper.mapCount(result);
+    }
+
     // upadte
     public void upadteBlogByBlogId(String email, int blogid, String title, String content) {
         String query = String.format(Queries.UPDATE_BLOG_BY_BLOGID, title, content, blogid, email);
